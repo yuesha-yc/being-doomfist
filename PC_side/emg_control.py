@@ -7,15 +7,19 @@ import datetime
 import threading
 from .directkeys import PressKey, ReleaseKey
 
+
+# this global variable will transform data between threads
 data = []
 
 # DirectInput Key Codes
-
 P = 0x19
 E = 0x12
 O = 0x18
 W = 0x11
 
+"""
+handles the incoming USART data
+"""
 def data_handler():
     global data
 
@@ -25,23 +29,30 @@ def data_handler():
     while True:
         recv = ser.readline()
         recv = recv.replace(b"\n", b"")
+
         if not recv or len(recv) != 8:
             continue
 
+        # HHHH: (analog-0, analog-1, analog-2, button)
         data = struct.unpack("HHHH", recv)
         data = np.array(data, dtype=np.float64)
         data *= 1 / 4096.
+
         if not cnt % 100:
             print(data)
         cnt += 1
 
 
+"""
+the main thread
+"""
 def key_handler(fig, ax, xs, y1s, y2s, y3s):
     global data
 
     def animate(i, xs, y1s, y2s, y3s):
         global data
 
+        # 
         if data[0] > 0.3:
             PressKey(P)
             ReleaseKey(P)

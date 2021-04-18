@@ -49,16 +49,14 @@ int main(void) {
     HAL_ADC_startConversion(ADC0, 0);
     buffer[2] = HAL_ADC_read(ADC0);
 
+    /* the signal will be active low */
     buffer[3] = HAL_GPIO_readPin(GPIOA, GPIO_PIN_4);
 
+    /* send the data to PC */
     HAL_USART_transmit(USART0, buffer, sizeof(uint16_t) * 4, 0);
     printf("\n", 0);
-    // printf("%d\n", HAL_GPIO_readPin(GPIOA, GPIO_PIN_4));
-    
-    /* log the data */
-    // printf("ADC value - PA0: %u\tPA1: %u\n", channel_0_data, channel_1_data);
 
-    /* delay for 0.05 second */
+    /* delay for 0.01 seconds */
     HAL_delay(10);
   }
 }
@@ -71,6 +69,7 @@ static void AG_GPIO_init(void) {
   
   GPIO_InitTypeDef gpio_init_struct;
   
+  /* USART pins */
   gpio_init_struct.pin = GPIO_PIN_9;
   gpio_init_struct.mode = GPIO_MODE_AF_PP;
   gpio_init_struct.speed = GPIO_SPEED_50MHZ;
@@ -82,21 +81,20 @@ static void AG_GPIO_init(void) {
   gpio_init_struct.speed = 0;
   gpio_init_struct.pull = GPIO_PULL_NONE;
   HAL_GPIO_init(GPIOA, &gpio_init_struct);
-  
+
+  /* Analog pins */
   gpio_init_struct.pin = GPIO_PIN_0 | GPIO_PIN_1 | GPIO_PIN_2 | GPIO_PIN_3;
   gpio_init_struct.mode = GPIO_MODE_ANALOG;
   gpio_init_struct.speed = GPIO_SPEED_50MHZ;
   gpio_init_struct.pull = GPIO_PULL_NONE;
-  // HAL_GPIO_init(GPIOA, &gpio_init_struct);
   HAL_GPIO_init(GPIOA, &gpio_init_struct);
   
+  /* button pin */
   gpio_init_struct.pin = GPIO_PIN_4;
   gpio_init_struct.mode = GPIO_MODE_INPUT;
   gpio_init_struct.speed = GPIO_SPEED_50MHZ;
   gpio_init_struct.pull = GPIO_PULL_UP;
-  // HAL_GPIO_init(GPIOA, &gpio_init_struct);
   HAL_GPIO_init(GPIOA, &gpio_init_struct);
-  
   
   gpio_init_struct.pin = GPIO_PIN_11;
   gpio_init_struct.mode = GPIO_MODE_INPUT;
