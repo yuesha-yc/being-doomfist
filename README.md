@@ -1,4 +1,4 @@
-![](cover.jpg)
+![](coverv2.jpg)
 
 # Being Doomfist is better than playing Doomfist
 
@@ -8,6 +8,7 @@ This is a project participating [CalHacks - Hello:World](https://helloworld.calh
 
 View our progress and gallery at [Devpost](https://devpost.com/software/being-doomfist-is-better-than-playing-doomfist)
 
+![](cover.jpg)
 
 ## Brief Explain
 
