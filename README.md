@@ -1,8 +1,8 @@
-![](cover.png)
+![](cover.jpg)
 
 # Being Doomfist is better than playing Doomfist
 
-Controlling your Overwatch character with electromyography sensors (EMG).
+Controlling the Overwatch character with electromyography sensors (EMG).
 
 This is a project participating [CalHacks - Hello:World](https://helloworld.calhacks.io/)
 
