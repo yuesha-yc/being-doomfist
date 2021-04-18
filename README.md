@@ -1,4 +1,4 @@
-![](coverv2.jpg)
+![](coverv2.png)
 
 # Being Doomfist is better than playing Doomfist
 
