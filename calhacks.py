@@ -46,7 +46,7 @@ def dataHandler3():
         data = struct.unpack("HHH", recv)
         data = np.array(data, dtype=np.float64)
         data *= 1/4096.
-        if not cnt % 50:
+        if not cnt % 100:
             print(data)
         cnt += 1
 
@@ -116,7 +116,7 @@ def start3(fig, ax, xs, y1s, y2s, y3s):
             PressKey(0x19)
             ReleaseKey(0x19)
 
-        elif data[2] > 0.7:
+        elif data[2] > 0.5:
             PressKey(0x12)
             ReleaseKey(0x12)
             
