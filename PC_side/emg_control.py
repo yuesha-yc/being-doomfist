@@ -5,10 +5,16 @@ import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 import datetime
 import threading
-from directkeys import PressKey, ReleaseKey
+from .directkeys import PressKey, ReleaseKey
 
 data = []
 
+# DirectInput Key Codes
+
+P = 0x19
+E = 0x12
+O = 0x18
+W = 0x11
 
 def data_handler():
     global data
@@ -37,23 +43,22 @@ def key_handler(fig, ax, xs, y1s, y2s, y3s):
         global data
 
         if data[0] > 0.3:
-            PressKey(0x19)
-            ReleaseKey(0x19)
+            PressKey(P)
+            ReleaseKey(P)
 
         elif data[2] > 0.6:
-            PressKey(0x12)
-            ReleaseKey(0x12)
+            PressKey(E)
+            ReleaseKey(E)
 
         elif data[1] > 0.5:
-            PressKey(0x18)
+            PressKey(O)
         else:
-            ReleaseKey(0x18)
+            ReleaseKey(O)
 
-        key = 0x11  # 0x17
         if not data[3]:
-            PressKey(key)
+            PressKey(W)
         else:
-            ReleaseKey(key)
+            ReleaseKey(W)
 
         temp_c = data[0]
         temp_c2 = data[1]
@@ -77,7 +82,7 @@ def key_handler(fig, ax, xs, y1s, y2s, y3s):
         plt.xticks(rotation=45, ha='right')
         plt.subplots_adjust(bottom=0.30)
         plt.title('Muscle Voltage')
-        plt.ylabel('Voltage')
+        plt.ylabel('Value')
         plt.ylim(0., 1.)
 
     ani = animation.FuncAnimation(fig, animate, fargs=(xs, y1s, y2s, y3s), interval=100)
@@ -94,6 +99,5 @@ def run_emg_control():
     y2s = []
     y3s = []
     key_handler(fig, ax, xs, y1s, y2s, y3s)
-
 
 run_emg_control()
