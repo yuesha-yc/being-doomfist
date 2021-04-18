@@ -1,0 +1,1 @@
+python ./gyro_control.py
